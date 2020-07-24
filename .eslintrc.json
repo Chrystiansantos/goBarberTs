@@ -23,7 +23,7 @@
     "prettier"
   ],
   "rules": {
-    "properties": "never",
+    "camelcase": "off",
     "class-methods-use-this": "off",
     "prettier/prettier": "error",
     "import/extensions": [
