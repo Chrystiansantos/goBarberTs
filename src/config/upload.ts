@@ -5,7 +5,7 @@ import crypto from 'crypto';
 const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
 
 export default {
-  derectory: tmpFolder,
+  directory: tmpFolder,
   storage: multer.diskStorage({
     destination: tmpFolder,
     filename(req, file, callback) {

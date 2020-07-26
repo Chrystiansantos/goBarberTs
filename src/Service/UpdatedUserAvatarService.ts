@@ -18,7 +18,7 @@ class UpdatedUserAvatarService {
 
     if (user.avatar) {
       // Aqui vou verificar se existe este arquivo no storage
-      const userAvatarFilePath = path.join(uploadConfig.derectory, user.avatar);
+      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
       const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
       if (userAvatarFileExists) {
         // Aqui eu estou deletando o arquivo
