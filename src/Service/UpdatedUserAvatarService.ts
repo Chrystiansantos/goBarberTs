@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import Users from '../models/User';
 import uploadConfig from '../config/upload';
+import AppError from '../errors/AppError';
 
 interface Request {
   user_id: string;
@@ -14,7 +15,7 @@ class UpdatedUserAvatarService {
     const userRepository = getRepository(Users);
     console.log(user_id);
     const user = await userRepository.findOne(user_id);
-    if (!user) throw new Error('Only authenticated can change avatar');
+    if (!user) throw new AppError('Only authenticated can change avatar');
 
     if (user.avatar) {
       // Aqui vou verificar se existe este arquivo no storage
