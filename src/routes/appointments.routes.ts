@@ -5,10 +5,13 @@ import { parseISO } from 'date-fns';
 import CreateAppointmentService from '../Service/CreateAppointmentService';
 import AppointmentRepository from '../repositories/AppointmentRepository';
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 const appointmentsRouter = Router();
 
 // Rota, se responsaviliza apenas por Receber uma requisicao,
 //  Chamar um arquivo pra tratar deolver uam resposta
+appointmentsRouter.use(ensureAuthenticated);
 
 appointmentsRouter.post('/', async (req: Request, res: Response) => {
   try {
@@ -32,7 +35,7 @@ appointmentsRouter.get('/', async (req: Request, res: Response) => {
     const appointments = await appointmentsRepository.find();
     return res.json(appointments);
   } catch (error) {
-    return res.status(400).json(error);
+    // return res.status(400).json(error);
   }
 });
 
