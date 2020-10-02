@@ -7,12 +7,12 @@ import AppointmentRepository from '@modules/appointments/infra/typeorm/repositor
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const appointmentsRouter = Router();
-const appointmentRepository = new AppointmentRepository();
 // Rota, se responsaviliza apenas por Receber uma requisicao,
 //  Chamar um arquivo pra tratar deolver uam resposta
 appointmentsRouter.use(ensureAuthenticated);
 
 appointmentsRouter.post('/', async (req: Request, res: Response) => {
+  const appointmentRepository = new AppointmentRepository();
   const { provider_id, date } = req.body;
   const parsedDate = parseISO(date);
 

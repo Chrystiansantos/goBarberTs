@@ -5,9 +5,9 @@ import cors from 'cors';
 
 import uploadoConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
-import routes from './routes/index';
 
 import '@shared/infra/typeorm';
+import routes from './routes/index';
 
 const app = express();
 app.use(cors());
