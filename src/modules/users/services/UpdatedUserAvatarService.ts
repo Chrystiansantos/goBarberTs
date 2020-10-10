@@ -1,9 +1,7 @@
-import path from 'path';
-import fs from 'fs';
 import Users from '@modules/users/infra/typeorm/entities/User';
-import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
+import IStorageProvider from '@shared/container/Provider/StorageProvider/models/IStorageProvider';
 import IUsersRepository from '../repositories/IUsersRepositories';
 
 interface IRequest {
@@ -15,6 +13,8 @@ class UpdatedUserAvatarService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
   ) {}
 
   public async execute({ user_id, avatarFileName }: IRequest): Promise<Users> {
@@ -23,13 +23,11 @@ class UpdatedUserAvatarService {
 
     if (user.avatar) {
       // Aqui vou verificar se existe este arquivo no storage
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
-      if (userAvatarFileExists) {
-        // Aqui eu estou deletando o arquivo
-        await fs.promises.unlink(userAvatarFilePath);
-      }
+      await this.storageProvider.deleteFile(user.avatar);
     }
+    const filename = await this.storageProvider.saveFile(avatarFileName);
+    user.avatar = filename;
+
     user.avatar = avatarFileName;
     await this.usersRepository.save(user);
     return user;
