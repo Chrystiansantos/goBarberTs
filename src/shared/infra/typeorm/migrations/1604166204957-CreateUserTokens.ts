@@ -44,7 +44,7 @@ export default class CreateUserTokens1604166204957
             // NOME DA COLUNA QUE SERA REFERENCIADA NA TABELA
             referencedColumnNames: ['id'],
             // NOME DA COLUNE NESSA TABELA QUE SERA REFERENCIADA
-            columnNames: ['id'],
+            columnNames: ['user_id'],
             // OQUE FAZER QUANDO FOR DELETADA
             onDelete: 'CASCADE',
             // OQUE FAZER QUANDO FOR ALTERADO

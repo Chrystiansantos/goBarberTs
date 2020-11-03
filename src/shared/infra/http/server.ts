@@ -13,7 +13,7 @@ import routes from './routes/index';
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/files', express.static(uploadoConfig.directory));
+app.use('/files', express.static(uploadoConfig.uploadsFolder));
 app.use(routes);
 app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
   if (err instanceof AppError) {
