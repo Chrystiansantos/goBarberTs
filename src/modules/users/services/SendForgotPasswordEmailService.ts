@@ -3,6 +3,7 @@ import IUserRepository from '@modules/users/repositories/IUsersRepositories';
 import IMailProvider from '@shared/container/Provider/MailProvider/models/IMailProvider';
 import AppError from '@shared/errors/AppError';
 import IUserTokenRepository from '@modules/users/repositories/ITokenUserRespository';
+import path from 'path';
 
 interface IRequest {
   email: string;
@@ -26,6 +27,12 @@ class SendForgotPasswordEmailService {
 
     const { token } = await this.userTokenRepository.generate(userExists.id);
 
+    const forgotPasswordTemplatePath = path.resolve(
+      '..',
+      'viwes',
+      'forgot_password.hbs',
+    );
+
     await this.mailProvider.sendMail({
       to: {
         name: userExists.name,
@@ -33,7 +40,7 @@ class SendForgotPasswordEmailService {
       },
       subject: '[Gobarber] Recuperação de senha',
       templateData: {
-        template: 'Olá, {{name}}, token:{{token}}',
+        file: forgotPasswordTemplatePath,
         variables: {
           name: userExists.name,
           token,
