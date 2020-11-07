@@ -1,13 +1,13 @@
 import FakeStorageProvicer from '@shared/container/Provider/StorageProvider/fakes/FakeStorageProvider';
 import AppError from '@shared/errors/AppError';
-import FakeUserRepository from '../repositories/fakes/FakeUserRepositories';
-import UpdateUserAvatarService from './UpdatedUserAvatarService';
+import FakeUserRepository from '../../repositories/fakes/FakeUserRepositories';
+import UpdateUserAvatarService from '../UpdatedUserAvatarService';
 
 let fakeUsersRepository: FakeUserRepository;
 let fakeStorageProvider: FakeStorageProvicer;
 let updateUserAvatar: UpdateUserAvatarService;
 
-describe('UpdatedUserAvatarService', async () => {
+describe('UpdatedUserAvatarService', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUserRepository();
     fakeStorageProvider = new FakeStorageProvicer();

@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
-import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
-import FakeUsersRepository from '../repositories/fakes/FakeUserRepositories';
-import UpdateProfileService from './UpdateProfileService';
+import FakeHashProvider from '../../providers/HashProvider/fakes/FakeHashProvider';
+import FakeUsersRepository from '../../repositories/fakes/FakeUserRepositories';
+import UpdateProfileService from '../UpdateProfileService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;
@@ -52,6 +52,15 @@ describe('UpdateProfileService', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+  it('shoul not be able show the profile from non-existing user', async () => {
+    expect(
+      updateProfileService.execute({
+        user_id: 'user_id_does_not_existis',
+        name: 'Chrystian',
+        email: 'chrsytian@gmail.com',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
   it('to update the password', async () => {
     const user = await fakeUsersRepository.create({
       name: 'Chrystian',
@@ -64,7 +73,7 @@ describe('UpdateProfileService', () => {
       name: 'Teste',
       email: 'teste@gmail.com',
       password: '123123',
-      old_passowrd: '123456',
+      old_password: '123456',
     });
     expect(updatedUser.name).toBe('Teste');
     expect(updatedUser.password).toBe('123123');
@@ -98,7 +107,7 @@ describe('UpdateProfileService', () => {
         email: 'teste@gmail.com',
         name: 'Teste',
         password: '123123',
-        old_passowrd: 'wrong-old-password',
+        old_password: 'wrong-old-password',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
