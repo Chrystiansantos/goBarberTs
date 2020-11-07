@@ -1,7 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import { check } from 'prettier';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepositories';
 import User from '../infra/typeorm/entities/User';
@@ -10,7 +9,7 @@ interface IRequest {
   user_id: string;
   name: string;
   email: string;
-  old_passowrd?: string;
+  old_password?: string;
   password?: string;
 }
 
@@ -29,7 +28,7 @@ export default class UpdateProfileService {
     name,
     email,
     password,
-    old_passowrd,
+    old_password,
   }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
     if (!user) {
@@ -41,21 +40,20 @@ export default class UpdateProfileService {
     if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user_id) {
       throw new AppError('E-mail already in use');
     }
-    if (password && !old_passowrd) {
+    if (password && !old_password) {
       throw new AppError(
         'You need to inform old password to set a changed profile',
       );
     }
 
-    if (password && old_passowrd) {
+    if (password && old_password) {
       const checkOldPassword = await this.hashProvider.compareHash(
-        old_passowrd,
+        old_password,
         user.password,
       );
       if (!checkOldPassword) {
         throw new AppError('Old password does not match');
       }
-
       user.password = await this.hashProvider.generateHash(password);
     }
 
