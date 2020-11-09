@@ -14,19 +14,67 @@ describe('ListProviderMonthAvailabilityService', () => {
   it('it should be able to list the month availability from provider', async () => {
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
-      date: new Date(2020, 9, 7, 8, 0, 0),
+      date: new Date(2020, 10, 7, 8, 0, 0),
     });
+
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
       date: new Date(2020, 10, 7, 8, 0, 0),
     });
+
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
       date: new Date(2020, 10, 7, 10, 0, 0),
     });
+
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2020, 10, 8, 8, 0, 0),
+    });
+
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
       date: new Date(2020, 10, 8, 9, 0, 0),
+    });
+
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2020, 10, 8, 10, 0, 0),
+    });
+
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2020, 10, 8, 11, 0, 0),
+    });
+
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2020, 10, 8, 12, 0, 0),
+    });
+
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2020, 10, 8, 13, 0, 0),
+    });
+
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2020, 10, 8, 14, 0, 0),
+    });
+
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2020, 10, 8, 15, 0, 0),
+    });
+
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2020, 10, 8, 16, 0, 0),
+    });
+
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2020, 10, 8, 17, 0, 0),
     });
 
     const availability = await listProviderMonthAvailabilityService.execute({
@@ -38,7 +86,7 @@ describe('ListProviderMonthAvailabilityService', () => {
     expect(availability).toEqual(
       expect.arrayContaining([
         { day: 6, available: true },
-        { day: 7, available: false },
+        { day: 7, available: true },
         { day: 8, available: false },
         { day: 9, available: true },
       ]),
