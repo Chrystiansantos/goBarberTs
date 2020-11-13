@@ -17,6 +17,7 @@ describe('CreateAppointment', () => {
   it('should be able to create a new appointment', async () => {
     const appointment = await createAppointmentService.execute({
       date: new Date(),
+      user_id: 'user-id',
       provider_id: '123123',
     });
     // ira verificar se existe essa propriedade
@@ -28,6 +29,7 @@ describe('CreateAppointment', () => {
 
     await createAppointmentService.execute({
       date: appointmentDate,
+      user_id: 'user-id',
       provider_id: '123123',
     });
     // Dessa forma eu espero que a funcao rejeite um erro e esse erro seja
@@ -35,6 +37,7 @@ describe('CreateAppointment', () => {
     await expect(
       createAppointmentService.execute({
         date: appointmentDate,
+        user_id: 'user-id',
         provider_id: '123123',
       }),
     ).rejects.toBeInstanceOf(AppError);
