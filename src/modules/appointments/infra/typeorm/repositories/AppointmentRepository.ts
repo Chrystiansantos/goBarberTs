@@ -40,12 +40,13 @@ class AppointmentRepository implements IAppointmentRepository {
   }: IFindAllInMonthFromProvider): Promise<Appointment[]> {
     // essa funcao ira preencher com 0 caso tenha menos de 2 digitos
     const parsedMonth = String(month).padStart(2, '0');
+
     const findAppointments = await this.ormRepository.find({
       where: {
         provider_id,
         date: Raw(
           dateFieldName =>
-            `to_char(${dateFieldName},'MM-YYYY') = '${parsedMonth}'-${year}`,
+            `to_char(${dateFieldName},'MM-YYYY') = '${parsedMonth}-${year}'`,
         ),
       },
     });
@@ -66,7 +67,7 @@ class AppointmentRepository implements IAppointmentRepository {
         provider_id,
         date: Raw(
           dateFieldName =>
-            `to_char(${dateFieldName},"DD-MM-YYYY) = '${parsedDay}-${parsedMonth}-${year}`,
+            `to_char(${dateFieldName},'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,
         ),
       },
     });
