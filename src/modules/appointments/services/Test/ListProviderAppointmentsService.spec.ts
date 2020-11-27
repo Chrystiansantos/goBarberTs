@@ -25,16 +25,12 @@ describe('ListProviderAppointmentsService', () => {
       date: new Date(2020, 10, 23, 15, 0, 0),
     });
 
-    console.log([appointment1, appointment2]);
-
     const appointments = await listProviderAppointmentsService.execute({
       provider_id: 'provider_id',
       year: 2020,
       month: 11,
       day: 23,
     });
-
-    console.log(appointments);
 
     expect(appointments).toEqual([appointment1, appointment2]);
   });
