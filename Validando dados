@@ -1,0 +1,48 @@
+Validando os dados com celebrate
+
+primeiro passo irei instalar o celebrate
+
+❯ yarn add celebrate
+
+Dentro da minha rota irei importar da seguinte maneira, pois irei utiliza-lo como um middleware
+
+import { celebrate, Segments,Joi } from 'celebrate';
+
+Preciso importar o seguimento, que sera o body, param ou query, para que eu valide as
+informacoes que venha por estes parametros
+
+preciso importaro joi pois ele ira fazer a validacao, preciso tambem instalar usa tipagem
+
+❯ yarn add @types/hapi__joi -D
+
+antes do meu controller irei fazer da seguinte maneira:
+//BODY
+appointmentsRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      provider_id: Joi.string().uuid().required(),
+      date: Joi.date().required(),
+    },
+  }),
+  appointmentsController.create,
+);
+//PARAMS
+providersRouter.get(
+  '/:provider_id/month-availability',
+  celebrate({
+    [Segments.PARAMS]: {
+      provider_id: Joi.string().uuid().required(),
+    },
+  }),
+  providerMonthAvailabilityController.index,
+);
+
+
+dentro do meu server.ts irei importar da seguinte forma para que o celebrate trate as msg de erro
+
+import { errors } from 'celebrate';
+
+Em seguida irei utiliza-lo da seguinte maneira:
+
+app.use(errors()); antes do meu exception handler
