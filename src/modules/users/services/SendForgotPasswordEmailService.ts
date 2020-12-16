@@ -28,8 +28,9 @@ class SendForgotPasswordEmailService {
     const { token } = await this.userTokenRepository.generate(userExists.id);
 
     const forgotPasswordTemplatePath = path.resolve(
+      __dirname,
       '..',
-      'viwes',
+      'views',
       'forgot_password.hbs',
     );
 
