@@ -1,3 +1,3 @@
-import './MailTemplateProvider/index';
-import './MailProvider/index';
-import './StorageProvider/index';
+import './MailTemplateProvider';
+import './MailProvider';
+import './StorageProvider';
