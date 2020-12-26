@@ -1,20 +1,25 @@
 import FakeAppointmentsRepository from '@modules/appointments/repositories/fakes/FakeAppointmentsRepository';
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationRepository';
+import FakeCacheProvider from '@shared/container/Provider/CacheProvider/fakes/FakeCacheProvider';
+
 import AppError from '@shared/errors/AppError';
 import CreateAppointmentService from '../CreateAppointmentService';
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
 let createAppointmentService: CreateAppointmentService;
 let fakeNotificationRepository: FakeNotificationsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 // describe cria como se  fosse uma categoria pra facilitar a vizualizaca dos resultados
 // geralmente passo o nome do service sem o service
 describe('CreateAppointment', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
     fakeNotificationRepository = new FakeNotificationsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
     createAppointmentService = new CreateAppointmentService(
       fakeAppointmentsRepository,
       fakeNotificationRepository,
+      fakeCacheProvider,
     );
   });
   it('should be able to create a new appointment', async () => {
