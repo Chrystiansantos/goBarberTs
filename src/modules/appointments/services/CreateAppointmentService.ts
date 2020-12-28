@@ -46,6 +46,7 @@ class CreateAppointmentService {
 
     const findApointmentInSameDate = await this.appointmentsRepository.findByDate(
       appointmentDate,
+      provider_id,
     );
     if (findApointmentInSameDate)
       throw new AppError('This appointment is alread booked', 400);

@@ -1,4 +1,5 @@
 import ICacheProvider from '@shared/container/Provider/CacheProvider/model/ICacheProvider';
+import { classToClass } from 'class-transformer';
 import { inject, injectable } from 'tsyringe';
 import Appointment from '../infra/typeorm/entities/Appointment';
 
@@ -39,7 +40,7 @@ export default class ListProviderAppointmentsService {
         },
       );
       console.log('buscou do banco');
-      await this.cacheProvider.save(cacheKey, appointments);
+      await this.cacheProvider.save(cacheKey, classToClass(appointments));
     }
     return appointments;
   }
